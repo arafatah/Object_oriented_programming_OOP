@@ -113,3 +113,41 @@ Array.prototype.unique = function () {
 };
 
 console.log(arr.unique());
+
+const h1 = document.querySelector('h1');
+console.dir(x => x + 1);
+// HTMLHeadingElement > HTMLElement > Element > Node > EventTarget > Object > Null
+
+// Class expression
+// const PersonCl = class {};
+
+// Class declaration - Jonas prefer this.
+class PersonCl {
+  // This is almost works like similar as constructor function.
+  // But this one is method
+  // Must call constructor
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+
+  calcAge() {
+    console.log(2039 - this.birthYear);
+  }
+}
+
+const jessica = new PersonCl('Jessica', 1998);
+console.log(jessica);
+jessica.calcAge();
+
+console.log(jessica.__proto__ === PersonCl.prototype);
+
+PersonCl.prototype.greet = function () {
+  console.log(`Hey ${this.firstName}`);
+};
+
+jessica.greet();
+
+// 1. Classes are not hoisted 
+// 2. Classes are first-class citizen 
+// 3. Classes always executed in strict mode 
