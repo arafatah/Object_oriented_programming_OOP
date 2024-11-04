@@ -102,3 +102,14 @@ mercedes.brake();
 
 console.log(Object.prototype);
 console.log(bmw.__proto__.__proto__.__proto__);
+
+const arr = [6, 2, 3, 3, 5, 6, 3];
+console.log(arr.__proto__);
+// console.log(arr.findLastIndex(el => el === 3));
+console.log(arr.__proto__ === Array.prototype);
+
+Array.prototype.unique = function () {
+  return [...new Set(this)];
+};
+
+console.log(arr.unique());
