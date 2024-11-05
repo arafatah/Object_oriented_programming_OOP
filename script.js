@@ -28,6 +28,11 @@ console.log(foysal, hridoy);
 
 console.log(john instanceof Person);
 
+Person.hey = function(){
+  console.log('Hello there.!!! ✅')
+}
+
+
 // Prototype - All objects inherit properties and methods from a prototype
 console.log(Person.prototype);
 Person.prototype.calcAge = function () {
@@ -126,8 +131,8 @@ class PersonCl {
   // This is almost works like similar as constructor function.
   // But this one is method
   // Must call constructor
-  constructor(firstName, birthYear) {
-    this.firstName = firstName;
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
     this.birthYear = birthYear;
   }
 
@@ -142,9 +147,20 @@ class PersonCl {
   get age() {
     return 2037 - this.birthYear;
   }
+
+  // Set a property that already exits
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not full name`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
 }
 
-const jessica = new PersonCl('Jessica', 1998);
+const jessica = new PersonCl('Jessica Davis', 1998);
 console.log(jessica);
 jessica.calcAge();
 console.log(jessica.age);
@@ -161,6 +177,8 @@ jessica.greet();
 // 2. Classes are first-class citizen
 // 3. Classes always executed in strict mode
 //** Classes hide the true nature of javaScript */
+
+const walter = new PersonCl('walter white', 1965);
 
 const account = {
   owner: 'Jonas',
@@ -180,3 +198,5 @@ console.log(account.latest);
 
 account.latest = 50;
 console.log(account.movements);
+
+
