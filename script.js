@@ -28,10 +28,12 @@ console.log(foysal, hridoy);
 
 console.log(john instanceof Person);
 
-Person.hey = function(){
-  console.log('Hello there.!!! ✅')
-}
+Person.hey = function () {
+  console.log('Hello there.!!! ✅');
+};
 
+Person.hey();
+// We can't say John.hey() Because this is the prototype of this object.
 
 // Prototype - All objects inherit properties and methods from a prototype
 console.log(Person.prototype);
@@ -41,14 +43,14 @@ Person.prototype.calcAge = function () {
 
 john.calcAge();
 foysal.calcAge();
-
+/* 
 console.log(john.__proto__);
 console.log(john.__proto__ === Person.prototype);
 
 console.log(Person.prototype.isPrototypeOf(john));
 console.log(Person.prototype.isPrototypeOf(foysal));
 console.log(Person.prototype.isPrototypeOf(Person));
-
+ */
 Person.prototype.species = 'Homo sapiens';
 console.log(john.species, foysal.species);
 
@@ -83,12 +85,12 @@ const Car = function (make, speed) {
 
 Car.prototype.accelerate = function () {
   this.speed += 10;
-  console.log(`${this.make} is going at ${this.speed} km/h`);
+  /* console.log(`${this.make} is going at ${this.speed} km/h`); */
 };
 
 Car.prototype.brake = function () {
   this.speed -= 5;
-  console.log(`${this.make} is going at ${this.speed} km/h`);
+  /* console.log(`${this.make} is going at ${this.speed} km/h`); */
 };
 
 const bmw = new Car('BMW', 120);
@@ -127,6 +129,7 @@ Array.prototype.unique = function () {
 // const PersonCl = class {};
 
 // Class declaration - Jonas prefer this.
+
 class PersonCl {
   // This is almost works like similar as constructor function.
   // But this one is method
@@ -136,6 +139,8 @@ class PersonCl {
     this.birthYear = birthYear;
   }
 
+  // Instance methods
+  // Methods will be added to .prototype
   calcAge() {
     console.log(2039 - this.birthYear);
   }
@@ -158,12 +163,18 @@ class PersonCl {
   get fullName() {
     return this._fullName;
   }
+
+  //Static method
+  static hey() {
+    console.log('Hello there.!!! ✅');
+    console.log(this);
+  }
 }
 
 const jessica = new PersonCl('Jessica Davis', 1998);
 console.log(jessica);
-jessica.calcAge();
-console.log(jessica.age);
+// jessica.calcAge();
+// console.log(jessica.age);
 
 console.log(jessica.__proto__ === PersonCl.prototype);
 
@@ -179,6 +190,7 @@ jessica.greet();
 //** Classes hide the true nature of javaScript */
 
 const walter = new PersonCl('walter white', 1965);
+PersonCl.hey();
 
 const account = {
   owner: 'Jonas',
@@ -194,9 +206,69 @@ const account = {
   },
 };
 
-console.log(account.latest);
+// console.log(account.latest);
 
 account.latest = 50;
-console.log(account.movements);
+// console.log(account.movements);
 
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
 
+const steven = Object.create(PersonProto);
+console.log(steven);
+
+/* Coding Challenge #2 
+Your tasks: 
+1. Re-create Challenge #1, 
+
+but this time using an ES6 class (call it 'CarCl') 
+2. Add a getter called 'speedUS' which returns the current speed in mi/h (divide by 1.6) 
+3. Add a setter called 'speedUS' which sets the current speed in mi/h (but converts it to km/h before storing the value, by multiplying the input by 1.6) 
+4. Create a new car and experiment with the 'accelerate' and 'brake' 
+methods, and with the getter and setter. 
+
+Test data: 
+§ Data car 1: 'Ford' going at 120 km/h 
+ 
+GOOD LUCK 
+ */
+
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+  }
+
+  brake() {
+    this.speed -= 5;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+  }
+
+  get speedUs() {
+    return this.speed / 1.6;
+  }
+
+  set speedUs(speed) {
+    this.speed = speed + 1.6;
+  }
+}
+
+const ford = new CarCl('Ford', 120);
+console.log(ford.speedUs);
+ford.accelerate()
+ford.accelerate()
+ford.brake()
+ford.speedUs = 50
+console.log(ford);
