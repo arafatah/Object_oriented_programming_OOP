@@ -112,10 +112,10 @@ Array.prototype.unique = function () {
   return [...new Set(this)];
 };
 
-console.log(arr.unique());
+// console.log(arr.unique());
 
-const h1 = document.querySelector('h1');
-console.dir(x => x + 1);
+// const h1 = document.querySelector('h1');
+// console.dir(x => x + 1);
 // HTMLHeadingElement > HTMLElement > Element > Node > EventTarget > Object > Null
 
 // Class expression
@@ -134,11 +134,20 @@ class PersonCl {
   calcAge() {
     console.log(2039 - this.birthYear);
   }
+
+  greet() {
+    console.log(`Hey ${this.firstName}`);
+  }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
 }
 
 const jessica = new PersonCl('Jessica', 1998);
 console.log(jessica);
 jessica.calcAge();
+console.log(jessica.age);
 
 console.log(jessica.__proto__ === PersonCl.prototype);
 
@@ -148,6 +157,26 @@ PersonCl.prototype.greet = function () {
 
 jessica.greet();
 
-// 1. Classes are not hoisted 
-// 2. Classes are first-class citizen 
-// 3. Classes always executed in strict mode 
+// 1. Classes are not hoisted
+// 2. Classes are first-class citizen
+// 3. Classes always executed in strict mode
+//** Classes hide the true nature of javaScript */
+
+const account = {
+  owner: 'Jonas',
+  movements: [299, 482, 432, 213, 524],
+
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+
+  // Any setter should be have one parameter
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+
+console.log(account.latest);
+
+account.latest = 50;
+console.log(account.movements);
