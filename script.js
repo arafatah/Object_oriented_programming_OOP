@@ -113,7 +113,7 @@ console.log(arr.__proto__ === Array.prototype);
 
 Array.prototype.unique = function () {
   return [...new Set(this)];
-}; */
+}; 
 
 // console.log(arr.unique());
 
@@ -182,7 +182,7 @@ jessica.greet();
 // 1. Classes are not hoisted
 // 2. Classes are first-class citizen
 // 3. Classes always executed in strict mode
-//** Classes hide the true nature of javaScript */
+//** Classes hide the true nature of javaScript 
 
 const walter = new PersonCl('walter white', 1965);
 PersonCl.hey();
@@ -244,7 +244,7 @@ Car2.prototype.accelerate = function () {
   this.speed += 10;
   console.log(`${this.make} is going at ${this.speed} km/h`);
 };
- */
+
 class CarCl {
   constructor(make, speed) {
     this.make = make;
@@ -289,10 +289,11 @@ Person.prototype.calcAge = function () {
   console.log(2037 - this.birthYear);
 };
 
+
 const Student = function (firstName, birthYear, course) {
-  /* DRY
-  this.firstName = firstName;
-  this.birthYear = birthYear; */
+  // DRY
+  // this.firstName = firstName;
+  // this.birthYear = birthYear;
   Person.call(this, firstName, birthYear);
   this.course = course;
 };
@@ -349,7 +350,7 @@ EV.prototype = Object.create(Car.prototype);
 EV.prototype.chargeBattery = function (chargeTo) {
   this.charge = chargeTo;
 };
-// If there is two function for prototype, then the first one will execute. *This will overwrite* 
+// If there is two function for prototype, then the first one will execute. *This will overwrite*
 EV.prototype.accelerate = function () {
   this.speed += 20;
   this.charge--;
@@ -369,3 +370,61 @@ const BMW = new EV('BMW', 125, 60);
 BMW.chargeBattery(20);
 BMW.brake();
 BMW.accelerate();
+
+//  Class inheritance
+class PersonCl {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  //Inherit method
+  calcAge() {
+    console.log(2039 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName}`);
+  }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  // Set a property that already exits
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not full name`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  //Static method
+  static hey() {
+    console.log('Hello there.!!! ✅');
+    console.log(this);
+  }
+}
+
+class StudentCl extends PersonCl {
+  constructor(fullName, birthYear, course) {
+    // Always needs to happen first.
+    super(fullName, birthYear);
+    this.course = course;
+  }
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study ${this.course}`);
+  }
+  calcAge() {
+    console.log(
+      `I'm ${2037 - this.birthYear} years old feels like ${2037 - this.birthYear + 10}`
+    );
+  }
+}
+
+const martha = new StudentCl('Martha Jones', 2012, 'Computer science');
+martha.introduce();
+martha.calcAge();
