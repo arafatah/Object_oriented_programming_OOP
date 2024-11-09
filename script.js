@@ -499,15 +499,18 @@ class Account {
 
   deposit(val) {
     this.#movements.push(val);
+    return this;
   }
   withdraw(val) {
     this.deposit(-val);
+    return this;
   }
 
   requestLoan(val) {
     if (this._approveLoan.apply(val)) {
       this.deposit(val);
-      console.log('Loadn approved');
+      console.log('Loan approved');
+      return this;
     }
   }
 
@@ -540,5 +543,7 @@ Account.helper();
 // console.log(acc1.#movements)
 // console.log(acc1.#approveLoan(100));
 
-
-// Chaining method 
+// Chaining method
+// In every method there must be return this, it will make the method chainable. EX:
+acc1.deposit(300).withdraw(34).requestLoan(250000).withdraw(3444);
+console.log(acc1.getMovements());
