@@ -547,3 +547,6 @@ Account.helper();
 // In every method there must be return this, it will make the method chainable. EX:
 acc1.deposit(300).withdraw(34).requestLoan(250000).withdraw(3444);
 console.log(acc1.getMovements());
+
+// Classes are only just syntax sugar over constructor functions
+// Classes are not hoisted and classes are first-class citizens and classes are executed in strict mode
