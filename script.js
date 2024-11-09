@@ -469,29 +469,45 @@ class Account {
     this.owner = owner;
     this.currency = currency;
     this.pin = pin;
+
     // We can create property that's not in input.
-    this.movements = [];
+    // Private property - start with underscore ( _ ) - Unique identifier
+    this._movements = [];
     this.locale = navigator.language;
 
     console.log(`Thanks for opening an account, ${owner}`);
   }
 
-  // Public interface 
+  // Public interface
   deposit(val) {
-    this.movements.push(val);
+    this._movements.push(val);
   }
   withdraw(val) {
     this.deposit(-val);
+  }
+
+  _approveLoan(val) {
+    return true;
+  }
+
+  requestLoan(val) {
+    if (this._approveLoan.apply(val)) {
+      this.deposit(val);
+      console.log('Loadn approved');
+    }
   }
 }
 
 const acc1 = new Account('Arafat', 'EUR', 1111);
 
-/* // Not good practice
-acc1.movements.push(250);
-acc1.movements.push(-250); */
+// Not good practice
+acc1._movements.push(250);
+acc1._movements.push(-250);
 
 acc1.deposit(255);
 acc1.withdraw(247);
+acc1.requestLoan(1000);
+acc1.requestLoan(150);
 
 console.log(acc1);
+console.log(acc1.pin);
