@@ -126,9 +126,11 @@ Array.prototype.unique = function () {
 
 // Class declaration - Jonas(Udemy) prefer this.
 class PersonCl {
+
   // This is almost works like similar as constructor function.
   // But this one is method
   // Must call constructor
+
   constructor(fullName, birthYear) {
     this.fullName = fullName;
     this.birthYear = birthYear;
@@ -136,6 +138,7 @@ class PersonCl {
 
   // Instance methods
   // Methods will be added to .prototype
+
   calcAge() {
     console.log(2039 - this.birthYear);
   }
@@ -192,19 +195,20 @@ const account = {
   movements: [299, 482, 432, 213, 524],
 
   get latest() {
+  // Slice will return an array with the last position. 
     return this.movements.slice(-1).pop();
   },
 
-  // Any setter should be have one parameter
+  // Any setter should be have at least one parameter
   set latest(mov) {
     this.movements.push(mov);
   },
 };
 
-// console.log(account.latest);
+console.log(account.latest);
 
 account.latest = 50;
-// console.log(account.movements);
+console.log(account.movements);
 
 const PersonProto = {
   calcAge() {
@@ -622,4 +626,25 @@ Rivian.accelerate()
   .brake()
   .chargeBattery(80)
   .accelerate();
-// console.log(Rivian.#charge);
+console.log(Rivian.speedUs);
+
+// --- Set method practice ---
+class PersonCl {
+  constructor(fulName, birthYear) {
+    this.fulName = fulName;
+    this.birthYear = birthYear;
+  }
+
+  set fulName(name) {
+    // UnderScore are added as a convention
+    if (name.includes(' ')) this._fulName = name;
+    else alert(`${name} not full name`);
+  }
+
+  get fulName() {
+    return this._fulName;
+  }
+}
+
+const jessica = new PersonCl('Jessica Davis', 1445);
+console.log(jessica);
