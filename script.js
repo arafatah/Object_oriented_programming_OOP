@@ -322,7 +322,7 @@ Test data:
 § Data car 1: 'Tesla' going at 120 km/h, with a charge of 23% 
 GOOD LUCK 
  */
-
+/*
 const Car = function (make, speed) {
   this.make = make;
   this.speed = speed;
@@ -335,6 +335,7 @@ Car.prototype.accelerate = function () {
     `${this.make} going at ${this.speed} km/h, ---DO----- with a charge of ${this.charge}%`
   );
 };
+
 Car.prototype.brake = function () {
   this.speed -= 5;
   console.log(`${this.make} is going at ${this.speed} km/h`);
@@ -350,6 +351,7 @@ EV.prototype = Object.create(Car.prototype);
 EV.prototype.chargeBattery = function (chargeTo) {
   this.charge = chargeTo;
 };
+
 // If there is two function for prototype, then the first one will execute. *This will overwrite*
 EV.prototype.accelerate = function () {
   this.speed += 20;
@@ -432,7 +434,6 @@ const martha = new StudentCl('Martha Jones', 2012, 'Computer science');
 martha.introduce();
 martha.calcAge();
 
-///////////
 // Inheritance between "Classes": Object.create
 
 const PersonProto = {
@@ -446,8 +447,8 @@ const PersonProto = {
 };
 
 const steven = Object.create(PersonProto);
-
 const StudentProto = Object.create(PersonProto);
+
 StudentProto.init = function (firstName, birthYear, course) {
   PersonProto.init.call(this, firstName, birthYear);
   this.course = course;
@@ -547,6 +548,78 @@ Account.helper();
 // In every method there must be return this, it will make the method chainable. EX:
 acc1.deposit(300).withdraw(34).requestLoan(250000).withdraw(3444);
 console.log(acc1.getMovements());
-
+*/
 // Classes are only just syntax sugar over constructor functions
 // Classes are not hoisted and classes are first-class citizens and classes are executed in strict mode
+
+// Your tasks:
+/* Coding Challenge #4 
+1. Re-create Challenge #3, but this time using ES6 classes: create an 'EVCl' child class of the 'CarCl' class 
+2. Make the 'charge' property private 
+3. Implement the ability to chain the 'accelerate' and'chargeBattery' methods of this class, and also update the 'brake' method in the'CarCl' class. Then experiment with chaining! 
+Test data: 
+§ Data car 1: 'Rivian' going at 120 km/h, with a charge of 23% 
+GOOD LUCK 
+ */
+
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+  }
+
+  brake() {
+    this.speed -= 5;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+    return this;
+  }
+
+  get speedUs() {
+    return this.speed / 1.6;
+  }
+
+  set speedUs(speed) {
+    this.speed = speed + 1.6;
+  }
+}
+
+class EVCl extends CarCl {
+  #charge;
+
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
+
+  chargeBattery = function (chargeTo) {
+    this.#charge = chargeTo;
+    return this;
+  };
+
+  accelerate = function () {
+    this.speed += 20;
+    this.#charge--;
+    console.log(
+      `${this.make} going at ${this.speed} km/h, with a charge of ${
+        this.#charge
+      }%`
+    );
+    return this;
+  };
+}
+
+const Rivian = new EVCl('Rivian', 120, 23);
+console.log(Rivian);
+Rivian.accelerate()
+  .accelerate()
+  .accelerate()
+  .accelerate()
+  .brake()
+  .chargeBattery(80)
+  .accelerate();
+// console.log(Rivian.#charge);
