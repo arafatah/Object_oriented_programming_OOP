@@ -444,6 +444,7 @@ const PersonProto = {
   calcAge() {
     console.log(2037 - this.birthYear);
   },
+
   init(firstName, birthYear) {
     this.firstName = firstName;
     this.birthYear = birthYear;
@@ -461,11 +462,12 @@ StudentProto.init = function (firstName, birthYear, course) {
 StudentProto.introduce = function () {
   console.log(`My name is ${this.firstName} and I study ${this.course}`);
 };
-
+ 
 const jay = Object.create(StudentProto);
 jay.init('jay', 2010, 'Computer Science');
 jay.introduce();
 jay.calcAge();
+
 
 // New method
 
@@ -492,7 +494,7 @@ class Account {
     // Private property - start with underscore ( _ ) - Unique identifier
     this.#movements = [];
     this.locale = navigator.language;
-
+    
     console.log(`Thanks for opening an account, ${owner}`);
   }
 
