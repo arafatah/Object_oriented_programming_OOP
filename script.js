@@ -568,7 +568,7 @@ Test data:
 GOOD LUCK 
  */
 
-class CarCl {
+/* class CarCl {
   constructor(make, speed) {
     this.make = make;
     this.speed = speed;
@@ -650,3 +650,32 @@ class PersonCl {
 
 const jessica = new PersonCl('Jessica Davis', 1445);
 console.log(jessica);
+ */
+
+// Arrow function will not work - this keyword
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+
+  // Never do this
+  // this.calcAge = function () {
+  //   console.log(2044 - this.birthYear);
+  // };
+};
+
+const Arafat = new Person('Arafat', 2001);
+console.log(Arafat);
+
+// 1. New {} is created
+// 2. Functions is called, this = {}
+// 3. {} linked to prototype
+// 4. function automatically return {}
+
+const matila = new Person('matila', 2114);
+console.log(matila);
+
+Person.prototype.calcAge = function () {
+  console.log(2044 - this.birthYear);
+};
+
+Arafat.calcAge();
