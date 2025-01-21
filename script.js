@@ -730,8 +730,8 @@ car2.brake();
 car2.accelerate();
 
 class PersonCl {
-  constructor(firstName, birthYear) {
-    this.firstName = firstName;
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
     this.birthYear = birthYear;
   }
 
@@ -740,15 +740,90 @@ class PersonCl {
   }
 
   greet() {
-    console.log(`Hey ${this.firstName}`);
+    console.log(`Hey ${this.fullName}`);
   }
 
   get age() {
     return 2037 - this.birthYear;
   }
+
+  // Set property that already exists
+  set fullName(name) {
+    if (name.includes(' ')) this._fullName = name;
+    else console.log(`Console: ${name} not full name`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+  // static method
+  static hey() {
+    console.log('Hey from Static 👋');
+    console.log(this);
+  }
 }
 
-const popil = new PersonCl('popil', 1998);
+const popil = new PersonCl('popil khan', 1998);
 console.log(popil);
 popil.greet();
+console.log(popil.age);
 
+const rathin = new PersonCl('rathin hung', 1965);
+PersonCl.hey();
+
+const account = {
+  owner: 'Arafat',
+  movements: [288, 422, 453, 288],
+
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+
+  // any setter method have at least on parameter
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+
+console.log(account.latest);
+account.latest = 50;
+console.log(account.movements);
+
+Person.hey = function () {
+  console.log('Hey there 👋');
+};
+
+Person.hey();
+
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+};
+
+const steven = Object.create(PersonProto);
+steven.name = 'Steven';
+steven.birthYear = 2022;
+console.log(steven);
+
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+  }
+
+  brake() {
+    this.speed -= 5;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+  }
+
+  get speedUS() {
+    this.speed / 1.6;
+  }
+  
+}
