@@ -679,3 +679,17 @@ Person.prototype.calcAge = function () {
 };
 
 Arafat.calcAge();
+
+console.log(Arafat.__proto__.__proto__);
+const arr = [3, 5, 7, 3, 5, 4, 3, 4, 8, 9];
+console.log(arr.__proto__);
+console.log(arr.__proto__ == Array.prototype);
+
+Array.prototype.unique = function () {
+  return [...new Set(this)];
+};
+
+console.log(arr.unique());
+
+const h1 = document.querySelector('h1');
+console.dir(x => x + 1);
