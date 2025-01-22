@@ -795,16 +795,9 @@ Person.hey = function () {
 
 Person.hey();
 
-const PersonProto = {
-  calcAge() {
-    console.log(2037 - this.birthYear);
-  },
-};
-
-const steven = Object.create(PersonProto);
-steven.name = 'Steven';
+/* steven.name = 'Steven';
 steven.birthYear = 2022;
-console.log(steven);
+console.log(steven); */
 
 class CarCl {
   constructor(make, speed) {
@@ -845,7 +838,6 @@ ford.brake();
 ford.speedUS = 50;
 console.log(ford);
 ford.accelerate();
-
 
 class PersonCl {
   constructor(fullName, birthYear) {
@@ -890,16 +882,48 @@ class StudentCl extends PersonCl {
     super(fullName, birthYear);
     this.course = course;
   }
+
   introduce() {
     console.log(`My name is ${this.fullName} and I study ${this.course}`);
   }
+
   calcAge() {
     console.log(
-      `I'm ${2037 - this.birthYear} years old feels like ${2037 - this.birthYear + 10}`
+      `I'm ${2037 - this.birthYear} years old feels like ${
+        2037 - this.birthYear + 10
+      }`
     );
   }
 }
 
 const martha = new StudentCl('Martha Jones', 2012, 'Computer science');
 martha.introduce();
-martha.calcAge();  
+martha.calcAge();
+
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(PersonProto);
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthYear, course) {
+  PersonProto.init.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+StudentProto.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const jay = Object.create(StudentProto);
+jay.init('jay', 2004, 'Computer science');
+jay.introduce();
+jay.calcAge();
