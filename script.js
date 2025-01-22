@@ -902,4 +902,4 @@ class StudentCl extends PersonCl {
 
 const martha = new StudentCl('Martha Jones', 2012, 'Computer science');
 martha.introduce();
-martha.calcAge(); 
+martha.calcAge();  
