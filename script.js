@@ -927,3 +927,84 @@ const jay = Object.create(StudentProto);
 jay.init('jay', 2004, 'Computer science');
 jay.introduce();
 jay.calcAge();
+
+// New method
+
+// There is 4 different kind fields in class
+// 1. Public fields
+// 2. Private fields
+// 3. Public methods
+// 4. Private methods
+// (There is also the static version)
+class Account {
+  // 1. Public fields (Instances)
+  locale = navigator.language;
+
+  // 2. Private fields
+  #movements = [];
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#pin = pin;
+
+    // We can create property that's not in input.
+    // Private property - start with underscore ( _ ) - Unique identifier
+    this.#movements = [];
+    this.locale = navigator.language;
+    
+    console.log(`Thanks for opening an account, ${owner}`);
+  }
+
+  // Public interface(API)
+  // 3. Public method
+  getMovements() {
+    return this.#movements;
+  }
+
+  deposit(val) {
+    this.#movements.push(val);
+    return this;
+  }
+  withdraw(val) {
+    this.deposit(-val);
+    return this;
+  }
+
+  requestLoan(val) {
+    if (this._approveLoan.apply(val)) {
+      this.deposit(val);
+      console.log('Loan approved');
+      return this;
+    }
+  }
+
+  static helper() {
+    console.log('Helper');
+  }
+
+  // 4. Private method
+  // #approveLoan(val) {
+  _approveLoan(val) {
+    return true;
+  }
+}
+
+const acc1 = new Account('Arafat', 'EUR', 1111);
+
+// Not good practice
+// acc1._movements.push(250);
+// acc1._movements.push(-250);
+
+acc1.deposit(255);
+acc1.withdraw(247);
+acc1.requestLoan(1000);
+acc1.requestLoan(150);
+console.log(acc1.getMovements());
+
+console.log(acc1);
+console.log(acc1.pin);
+Account.helper();
+// console.log(acc1.#movements)
+// console.log(acc1.#approveLoan(100));
